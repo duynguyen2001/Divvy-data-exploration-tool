@@ -1,24 +1,37 @@
-import logo from "./logo.svg";
-import { ThemeProvider } from "theme-ui";
+import * as React from "react";
+import { Routes, Route, HashRouter } from "react-router-dom";
+import { ThemeProvider } from 'theme-ui'
 import theme from "./theme";
-import React, { Component } from "react";
-import { createBrowserHistory } from "history";
-import { BrowserRouter } from "react-router-dom";
-import { Routes, Route } from "react-router";
+import BrushMode from "./pages/BrushMode";
+import SliderMode from "./pages/SliderMode";
+import SelectMode from "./pages/SelectMode";
+import About from "./pages/About";
+import NoMatch from "./pages/NoMatch";
 import Home from "./pages/Home";
+import Layout from "./pages/Layout";
 
-function App() {
+export default function App() {
+  return (
+    <div>
 
-    return (
-        <ThemeProvider theme={theme}>
-            {/* <Home></Home> */}
-            <BrowserRouter basename="/Project3CS424">
-                <Routes>
-                    <Route index component={<Home/>} />
-                </Routes>
-            </BrowserRouter>
-        </ThemeProvider>
-    );
+<ThemeProvider theme={theme}>
+    <HashRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="BrushMode" element={ <BrushMode/>} />
+          <Route path="SelectMode" element={ <SelectMode/>} />
+          <Route path="SliderMode" element={ <SliderMode/>} />
+
+          {/* Using path="*"" means "match anything", so this route
+                acts like a catch-all for URLs that we don't have explicit
+                routes for. */}
+          <Route path="*" element={<NoMatch />} />
+        </Route>
+      </Routes>
+      </HashRouter>
+      </ThemeProvider>
+    </div>
+  );
 }
-
-export default App;
