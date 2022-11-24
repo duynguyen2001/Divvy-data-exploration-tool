@@ -1,4 +1,5 @@
 import { Outlet, Link } from "react-router-dom";
+// import Map from "./Map"; 
 function Layout() {
     return (
         <div>
@@ -26,9 +27,12 @@ function Layout() {
                     </li>
                 </ul>
             </nav>
-
+            <div sx = {{
+                width: "500px",
+                height: "300px"
+            }}> </div>
             <hr />
-
+            
             {/* An <Outlet> renders whatever child route is currently active,
             so you can think about this <Outlet> as a placeholder for
             the child routes we defined above. */}

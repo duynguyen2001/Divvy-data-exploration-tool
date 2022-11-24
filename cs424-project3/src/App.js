@@ -1,7 +1,6 @@
+/** @jsxImportSource theme-ui */
 import * as React from "react";
 import { Routes, Route, HashRouter } from "react-router-dom";
-import { ThemeProvider } from "theme-ui";
-import theme from "./theme";
 import BrushMode from "./pages/BrushMode";
 import SliderMode from "./pages/SliderMode";
 import SelectMode from "./pages/SelectMode";
@@ -9,6 +8,8 @@ import About from "./pages/About";
 import NoMatch from "./pages/NoMatch";
 import Home from "./pages/Home";
 import Layout from "./pages/Layout";
+import { ThemeProvider } from "@emotion/react";
+import theme from './theme';
 
 export default function App() {
     return (
@@ -26,7 +27,7 @@ export default function App() {
                         </Route>
                     </Routes>
                 </HashRouter>
-            </ThemeProvider>
+                </ThemeProvider>
         </div>
     );
 }
