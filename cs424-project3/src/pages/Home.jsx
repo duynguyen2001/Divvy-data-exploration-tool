@@ -1,7 +1,6 @@
 /** @jsxImportSource theme-ui */
 // import Circles from "./Circles";
 import BarChart from './BarChart';
-import processed from "../hooks/functions/brushModeProcessingData";
 const data = [
   {year: 1980, efficiency: 24.3, sales: 8949000},
   {year: 1985, efficiency: 27.6, sales: 10979000},
@@ -37,7 +36,6 @@ const data = [
 
 
 const Home = () => {
-    console.log(processed())
     return (
         <div>
             <h1 sx={{ textAlign: "center", color: "divvyblue" }}>Hello World</h1>

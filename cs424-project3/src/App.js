@@ -11,8 +11,10 @@ import Layout from "./pages/Layout";
 import { ThemeProvider } from "@emotion/react";
 import theme from './theme';
 import Maps from "./pages/Maps";
+import raw from './hooks/functions/divvy_dataset.json';
 
 export default function App() {
+    const [data, changeData] = React.useState(raw);
     return (
         <div>
             <ThemeProvider theme={theme}>
