@@ -18,7 +18,7 @@ const theme = {
     heading: 1.125,
   },
   colors: {
-    text: "#000",
+    divvyblue: "#7dcbf0",
     background: "#fff",
     primary: "#5eb6ab",
     primaryLight: "#bff5ee", 

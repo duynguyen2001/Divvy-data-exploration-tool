@@ -10,11 +10,13 @@ import Home from "./pages/Home";
 import Layout from "./pages/Layout";
 import { ThemeProvider } from "@emotion/react";
 import theme from './theme';
+import Maps from "./pages/Maps";
 
 export default function App() {
     return (
         <div>
             <ThemeProvider theme={theme}>
+            <div sx={{position: "fixed", width: "100vw", height: "100vh", zIndex: '-8', top: 0, left:0}}><Maps/></div>
                 <HashRouter>
                     <Routes>
                         <Route path="/" element={<Layout />}>
