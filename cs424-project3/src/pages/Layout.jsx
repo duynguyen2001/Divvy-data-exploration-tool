@@ -2,7 +2,7 @@
 import { Outlet, Link } from "react-router-dom";
 import { Box, Button, Container, Flex, Grid } from "theme-ui";
 // import Map from "./Map";
-function Layout() {
+function Layout({data, changeData, renderMode, changeRenderMode, chosenData, changeChosenData, ...props}) {
     return (
         <Flex
             sx={{

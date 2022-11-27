@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef, useInterval } from "react"
 import * as d3 from 'd3';
 
-const Circles = () => {
+const Circles = ({data, changeData, renderMode, changeRenderMode, ...props}) => {
 	const ref = useRef()
   useEffect(() => {
     const svgElement = d3.select(ref.current)

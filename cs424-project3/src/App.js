@@ -9,29 +9,109 @@ import NoMatch from "./pages/NoMatch";
 import Home from "./pages/Home";
 import Layout from "./pages/Layout";
 import { ThemeProvider } from "@emotion/react";
-import theme from './theme';
+import theme from "./theme";
 import Maps from "./pages/Maps";
-import raw from './hooks/functions/divvy_dataset.json';
+import raw from "./hooks/functions/divvy_dataset.json";
 
 export default function App() {
     const [data, changeData] = React.useState(raw);
+    const [chosenData, changeChosenData] = React.useState([]);
+    const [renderMode, changeRenderMode] = React.useState("none");
     return (
         <div>
             <ThemeProvider theme={theme}>
-            <div sx={{position: "fixed", width: "100vw", height: "100vh", zIndex: '-8', top: 0, left:0}}><Maps/></div>
+                <div
+                    sx={{
+                        position: "fixed",
+                        width: "100vw",
+                        height: "100vh",
+                        zIndex: "-8",
+                        top: 0,
+                        left: 0,
+                    }}
+                >
+                    <Maps
+                        data={data}
+                        changeData={changeData}
+                        renderMode={renderMode}
+                        changeRenderMode={changeRenderMode}
+                        chosenData={chosenData}
+                        changeChosenData={changeChosenData}
+                    />
+                </div>
                 <HashRouter>
                     <Routes>
                         <Route path="/" element={<Layout />}>
-                            <Route index element={<Home />} />
-                            <Route path="about" element={<About />} />
-                            <Route path="BrushMode" element={<BrushMode />} />
-                            <Route path="SelectMode" element={<SelectMode />} />
-                            <Route path="SliderMode" element={<SliderMode />} />
+                            <Route
+                                index
+                                element={
+                                    <Home
+                                        data={data}
+                                        changeData={changeData}
+                                        renderMode={renderMode}
+                                        changeRenderMode={changeRenderMode}
+                                        chosenData={chosenData}
+                                        changeChosenData={changeChosenData}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="about"
+                                element={
+                                    <About
+                                        data={data}
+                                        changeData={changeData}
+                                        renderMode={renderMode}
+                                        changeRenderMode={changeRenderMode}
+                                    />
+                                }
+                                chosenData={chosenData}
+                                changeChosenData={changeChosenData}
+                            />
+                            <Route
+                                path="BrushMode"
+                                element={
+                                    <BrushMode
+                                        data={data}
+                                        changeData={changeData}
+                                        renderMode={renderMode}
+                                        changeRenderMode={changeRenderMode}
+                                        chosenData={chosenData}
+                                        changeChosenData={changeChosenData}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="SelectMode"
+                                element={
+                                    <SelectMode
+                                        data={data}
+                                        changeData={changeData}
+                                        renderMode={renderMode}
+                                        changeRenderMode={changeRenderMode}
+                                        chosenData={chosenData}
+                                        changeChosenData={changeChosenData}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="SliderMode"
+                                element={
+                                    <SliderMode
+                                        data={data}
+                                        changeData={changeData}
+                                        renderMode={renderMode}
+                                        changeRenderMode={changeRenderMode}
+                                        chosenData={chosenData}
+                                        changeChosenData={changeChosenData}
+                                    />
+                                }
+                            />
                             <Route path="*" element={<NoMatch />} />
                         </Route>
                     </Routes>
                 </HashRouter>
-                </ThemeProvider>
+            </ThemeProvider>
         </div>
     );
 }

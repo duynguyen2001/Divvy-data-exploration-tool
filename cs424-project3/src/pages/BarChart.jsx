@@ -1,3 +1,4 @@
+
 import { useD3 } from '../hooks/useD3';
 import React from 'react';
 import * as d3 from 'd3';
@@ -69,7 +70,7 @@ function BarChart({ data }) {
   return (
     <svg
       ref={ref}
-      style={{
+      sx={{
         height: 500,
         width: "100%",
         marginRight: "0px",
