@@ -2,8 +2,9 @@ import raw from "./divvy_dataset.json";
 import * as d3 from "d3";
 import { distBetween2Points, DIVVYBLUE, LYFTPINK } from "../../constant";
 import L from "leaflet";
-import * as LeafletDraw from 'leaflet-draw'
+import * as LeafletDraw from "leaflet-draw";
 import "leaflet-draw/dist/leaflet.draw.css";
+import { MapContainer } from "react-leaflet";
 
 export const brushModeProcessedData = () => {
     const final = [];
@@ -46,7 +47,7 @@ export const brushModeProcessedData = () => {
 export function addCircles(data, pointsToRender, map) {
     const circles = [];
     var i = 0;
-    console.log(map)
+    console.log(map);
     for (let ride of data) {
         if (i++ >= pointsToRender) {
             break;
@@ -95,71 +96,69 @@ function updateCircles(data, brush) {
     }
 }
 export function isMarkerInsidePolygon(marker, poly) {
-  // ref: https://stackoverflow.com/questions/31790344/determine-if-a-point-reside-inside-a-leaflet-polygon
-  var inside = false;
-  var x = marker.getLatLng().lat, y = marker.getLatLng().lng;
-  for (var ii=0;ii<poly.getLatLngs().length;ii++){
-    var polyPoints = poly.getLatLngs()[ii];
-    for (var i = 0, j = polyPoints.length - 1; i < polyPoints.length; j = i++) {
-      var xi = polyPoints[i].lat, yi = polyPoints[i].lng;
-      var xj = polyPoints[j].lat, yj = polyPoints[j].lng;
+    // ref: https://stackoverflow.com/questions/31790344/determine-if-a-point-reside-inside-a-leaflet-polygon
+    var inside = false;
+    var x = marker.getLatLng().lat,
+        y = marker.getLatLng().lng;
+    for (var ii = 0; ii < poly.getLatLngs().length; ii++) {
+        var polyPoints = poly.getLatLngs()[ii];
+        for (
+            var i = 0, j = polyPoints.length - 1;
+            i < polyPoints.length;
+            j = i++
+        ) {
+            var xi = polyPoints[i].lat,
+                yi = polyPoints[i].lng;
+            var xj = polyPoints[j].lat,
+                yj = polyPoints[j].lng;
 
-      var intersect = ((yi > y) != (yj > y))
-        && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
-      if (intersect) inside = !inside;
-    }
-  }
-
-  return inside;
-};
-
-export function drawPolygon(map) {
-  var editableLayers = new L.FeatureGroup();
-  map.addLayer(editableLayers);
-  
-  var drawPluginOptions = {
-    position: 'bottomleft',
-    draw: {
-      polygon: {
-        allowIntersection: false, // Restricts shapes to simple polygons
-        drawError: {
-          color: '#e1e100', // Color the shape will turn when intersects
-          message: '<strong>Oh snap!<strong> you can\'t draw that!' // Message that will show when intersect
-        },
-        shapeOptions: {
-          color: '#97009c'
+            var intersect =
+                yi > y != yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
+            if (intersect) inside = !inside;
         }
-      },
-      // disable toolbar item by setting it to false
-      polyline: false,
-      circle: false, // Turns off this drawing tool
-      rectangle: false,
-      marker: false,
-      },
-    edit: {
-      featureGroup: editableLayers, //REQUIRED!!
-      remove: false
     }
-  };
-  
-  // Initialise the draw control and pass it the FeatureGroup of editable layers
-  var drawControl = new L.Control.Draw(drawPluginOptions);
-  map.addControl(drawControl);
-  
-  var editableLayers = new L.FeatureGroup();
-  map.addLayer(editableLayers);
-  
-  map.on('draw:created', function(e) {
-    var type = e.layerType,
-      layer = e.layer;
-  
-    if (type === 'marker') {
-      layer.bindPopup('A popup!');
+
+    return inside;
+}
+
+export function drawPolygon(map, editableLayers) {
+    if (editableLayers == null) {
+        editableLayers = new L.FeatureGroup();
     }
-  
-    editableLayers.addLayer(layer);
-  });
-  return editableLayers;
+    map.addLayer(editableLayers);
+
+    var drawPluginOptions = {
+        position: "bottomleft",
+        draw: {
+            polygon: false,
+            // disable toolbar item by setting it to false
+            polyline: false,
+            circle: false, // Turns off this drawing tool
+            rectangle: true,
+            marker: false,
+        },
+        edit: {
+            featureGroup: editableLayers, //REQUIRED!!
+            remove: true,
+        },
+    };
+
+    // Initialise the draw control and pass it the FeatureGroup of editable layers
+    var drawControl = new L.Control.Draw(drawPluginOptions);
+    map.addControl(drawControl);
+
+    map.on("draw:created", function (e) {
+        editableLayers.clearLayers();
+        var type = e.layerType,
+            layer = e.layer;
+
+        if (type === "marker") {
+            layer.bindPopup("A popup!");
+        }
+
+        editableLayers.addLayer(layer);
+    });
+    return editableLayers;
 }
 
 export default brushModeProcessedData;

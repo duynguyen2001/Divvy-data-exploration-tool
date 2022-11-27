@@ -26,9 +26,9 @@ const Maps = ({
     useEffect(() => {
         if (layerRef.current != null) {
             layerRef.current.clearLayers();
-
+            editableLayerRef.current.clearLayers();
             if (editableLayerRef.current == null) {
-                editableLayerRef.current = drawPolygon(mapRef.current);
+                editableLayerRef.current = drawPolygon(mapRef.current, editableLayerRef.current);
             }
             if (renderMode === "brushmode") {
                 console.log(editableLayerRef.current.getBounds());
