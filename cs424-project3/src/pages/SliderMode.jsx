@@ -1,7 +1,7 @@
 import Scatterplot from "./Scatterplot";
 import { useEffect } from "react";
 import brushModeProcessedData from "../hooks/functions/brushModeProcessingData";
-import { Slider } from "theme-ui";
+import { Slider, Flex } from "theme-ui";
 import { useState } from "react";
 
 const SliderMode = ({data, changeData, renderMode, changeRenderMode, chosenData, changeChosenData, ...props}) => {
@@ -18,7 +18,7 @@ const SliderMode = ({data, changeData, renderMode, changeRenderMode, chosenData,
         changeRenderMode("slidermode");
     }, []);
     
-    return<div>
+    return<div sx={{justifyContent: "center"}}>
         <Scatterplot data={data} chosenData={chosenData} minutesSince={updatedMinuteValue}/>
             <Slider defaultValue={silderValue} onChange={(e) =>{
                 changeSliderValue(e.target.value) 
