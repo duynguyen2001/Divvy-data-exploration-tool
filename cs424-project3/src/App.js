@@ -85,12 +85,12 @@ export default function App() {
                                 path="SelectMode"
                                 element={
                                     <SelectMode
-                                        data={data}
-                                        changeData={changeData}
-                                        renderMode={renderMode}
-                                        changeRenderMode={changeRenderMode}
-                                        chosenData={chosenData}
-                                        changeChosenData={changeChosenData}
+                                    data={data}
+                                    changeData={changeData}
+                                    renderMode={renderMode}
+                                    changeRenderMode={changeRenderMode}
+                                    chosenData={chosenData}
+                                    changeChosenData={changeChosenData}
                                     />
                                 }
                             />

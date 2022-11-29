@@ -5,6 +5,7 @@ import { useState, useRef } from "react";
 import { useEffect } from "react";
 import { addCircles, brushLayer } from "../hooks/functions/brushModeProcessingData";
 import { drawPolygon } from "../hooks/functions/brushModeProcessingData";
+import { selectMap } from "../hooks/functions/selectModeProcessingData";
 import * as L from "leaflet";
 const chicagoCoordinates = [41.8781, -87.53];
 const defaultZoomLevel = 12;
@@ -18,7 +19,6 @@ const Maps = ({
     changeChosenData,
     ...props
 }) => {
-    const [renderData, changeRenderData] = useState([]);
     const mapRef = useRef(null);
     const layerRef = useRef(null);
     const editableLayerRef = useRef(null);
@@ -26,16 +26,20 @@ const Maps = ({
     useEffect(() => {
         if (layerRef.current != null) {
             layerRef.current.clearLayers();
-            editableLayerRef.current.clearLayers();
             if (editableLayerRef.current == null) {
-                editableLayerRef.current = drawPolygon(mapRef.current, editableLayerRef.current);
+                editableLayerRef.current = drawPolygon(mapRef.current, editableLayerRef.current, data, changeChosenData);
+                // console.log(editableLayerRef.current)
+            } else {
+                editableLayerRef.current.clearLayers();
             }
-            if (renderMode === "brushmode") {
-                console.log(editableLayerRef.current.getBounds());
+            if (renderMode === "brushmode" || renderMode === "slidermode") {
                 addCircles(data, 5000, layerRef.current);
+            } else if (renderMode === "selectmode") {
+                selectMap(data, layerRef.current)
             }
         }
-    }, [data]);
+    }, [data, renderMode]);
+
 
     return (
         <div sx={{ width: "100vw", height: "100vh", overflow: "hidden" }}>

@@ -2,9 +2,7 @@ import raw from "./divvy_dataset.json";
 import * as d3 from "d3";
 import { distBetween2Points, DIVVYBLUE, LYFTPINK } from "../../constant";
 import L from "leaflet";
-import * as LeafletDraw from "leaflet-draw";
 import "leaflet-draw/dist/leaflet.draw.css";
-import { MapContainer } from "react-leaflet";
 
 export const brushModeProcessedData = () => {
     const final = [];
@@ -120,8 +118,45 @@ export function isMarkerInsidePolygon(marker, poly) {
 
     return inside;
 }
-
-export function drawPolygon(map, editableLayers) {
+/**
+ * recolour all the circles based on within polygon
+ * @param {Array} data full Divvy dataset
+ * @param {Object} polygon Leaflet polygon
+ * @returns filtered data
+ */
+export function updatePoints(data, polygon) {
+    const final = [];
+    for (let ride of data) {
+        // if (brush.contains(ride.map_circle.getLatLng())) {
+        if (d3.geoContains(polygon.toGeoJSON(), [ride.start_lng, ride.start_lat])) {
+            ride.map_circle.setStyle({
+                color: (ride.rideable_type == 'electric_bike') ? LYFTPINK : DIVVYBLUE,
+                fillColor: (ride.rideable_type == 'electric_bike') ? LYFTPINK : DIVVYBLUE,
+                fillOpacity: 1
+            });
+        } else {
+            final.push(ride);
+            ride.map_circle.setStyle({
+                color: 'gray',
+                fillOpacity: 1,
+                fillColor: 'gray',
+            });
+        }
+    }
+    return final;
+}
+export function filterPoints(data, polygon) {
+    const final = [];
+    console.log(data)
+    for (let ride of data) {
+        // if (brush.contains(ride.map_circle.getLatLng())) {
+        if (d3.geoContains(polygon.toGeoJSON(), [ride.start_lng, ride.start_lat])) {
+            final.push(ride)
+        } 
+    }
+    return final;
+}
+export function drawPolygon(map, editableLayers, data, changeChosenData) {
     if (editableLayers == null) {
         editableLayers = new L.FeatureGroup();
     }
@@ -130,7 +165,7 @@ export function drawPolygon(map, editableLayers) {
     var drawPluginOptions = {
         position: "bottomleft",
         draw: {
-            polygon: false,
+            polygon: true,
             // disable toolbar item by setting it to false
             polyline: false,
             circle: false, // Turns off this drawing tool
@@ -148,14 +183,16 @@ export function drawPolygon(map, editableLayers) {
     map.addControl(drawControl);
 
     map.on("draw:created", function (e) {
-        editableLayers.clearLayers();
+        editableLayers.clearLayers();  // remove previous polygon
+
         var type = e.layerType,
             layer = e.layer;
 
         if (type === "marker") {
             layer.bindPopup("A popup!");
         }
-
+        // console.log(layer.toGeoJSON());
+        changeChosenData(filterPoints(data, layer));
         editableLayers.addLayer(layer);
     });
     return editableLayers;

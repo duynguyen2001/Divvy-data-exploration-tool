@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { brushModeProcessedData } from "../hooks/functions/brushModeProcessingData";
 import LineChart from "./LineChart";
 const BrushMode = ({
@@ -17,7 +17,7 @@ const BrushMode = ({
     return (
         <div>
             <h1>Hello World</h1>
-            <LineChart data={chosenData.length === 0? data: chosenData} />
+            <LineChart data={data} chosenData={chosenData}/>
         </div>
     );
 };

@@ -10,7 +10,6 @@ const Home = ({data, changeData, renderMode, changeRenderMode, chosenData, chang
     return (
         <div>
             <h1 sx={{ textAlign: "center", color: "divvyblue" }}>Hello World</h1>
-            {/* <BarChart data={data} /> */}
         </div>
     );
 };

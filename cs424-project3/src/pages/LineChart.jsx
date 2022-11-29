@@ -1,8 +1,9 @@
 import { useD3 } from "../hooks/useD3";
 import React from "react";
 import * as d3 from "d3";
+import { useEffect } from "react";
 
-function LineChart({ data }) {
+function LineChart({ data ,chosenData}) {
     const ref = useD3(
         (svg) => {
             const margin = { top: 70, right: 30, bottom: 50, left: 80 },
@@ -31,13 +32,13 @@ function LineChart({ data }) {
                 .scaleLinear()
                 .domain([0, d3.max(countsByTime(data).map((d) => d.rides))])
                 .range([height, 0]);
-            let yAxisGroup = lineChart.append("g");
+            let yAxisGroup = lineChart.append("g").attr("id","yAxisStuff");
             let yAxis = yAxisGroup.call(d3.axisLeft(y));
 
             // Add the line
 
-            let path = lineChart.append("path");
-            path.datum(countsByTime(data))
+            let path = lineChart.append("path").attr("id","lineGraph");
+            path.append("datum").datum(countsByTime(data))
                 .attr("fill", "none")
                 .attr("stroke", "steelblue")
                 .attr("stroke-width", 1.5)
@@ -54,6 +55,8 @@ function LineChart({ data }) {
                 );
 
             function update(data) {
+                svg.selectAll("#lineGraph").remove();
+                svg.selectAll("#yAxisStuff").remove();
                 // update x axis
                 const t = svg.transition().ease(d3.easeLinear).duration(200);
 
@@ -62,9 +65,12 @@ function LineChart({ data }) {
                     .domain([0, d3.max(countsByTime(data).map((d) => d.rides))])
                     .range([height, 0]);
 
+                let yAxisGroup = lineChart.append("g").attr("id","yAxisStuff");
+
                 yAxis = yAxisGroup.transition(t).call(d3.axisLeft(y));
 
                 // draw bars
+                let path = lineChart.append("path").attr("id","lineGraph");
                 path.datum(countsByTime(data))
                     .attr("fill", "none")
                     .attr("stroke", "steelblue")
@@ -103,6 +109,9 @@ function LineChart({ data }) {
         },
         [data.length]
     );
+    useEffect(() => {
+        ref.current.update(chosenData.length === 0 ? data: chosenData)
+    }, [chosenData.length])
 
     return (
         <svg
@@ -114,9 +123,6 @@ function LineChart({ data }) {
                 marginLeft: "0px",
             }}
         >
-            <g className="plot-area" />
-            <g className="x-axis" />
-            <g className="y-axis" />
         </svg>
     );
 }
