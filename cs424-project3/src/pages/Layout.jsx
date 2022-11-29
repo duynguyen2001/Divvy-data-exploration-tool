@@ -15,9 +15,10 @@ function Layout({
         <Flex
             sx={{
                 position: "fixed",
-                width: "50%",
-                right: 0,
+                width: "70%",
+                right: "0%",
                 flexDirection: "column",
+
             }}
         >
             {/* A "layout route" is a good place to put markup you want to
@@ -53,7 +54,7 @@ function Layout({
                 sx={{
                     position: "relative",
                     zIndex: "1",
-                    width: "50vw",
+                    width: "63vw",
                     background: "rgba(255, 255, 255, 0.45)",
                     borderRadius: "16px",
                     boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",

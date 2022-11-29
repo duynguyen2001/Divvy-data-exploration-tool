@@ -7,7 +7,8 @@ import { addCircles, brushLayer } from "../hooks/functions/brushModeProcessingDa
 import { drawPolygon } from "../hooks/functions/brushModeProcessingData";
 import { selectMap } from "../hooks/functions/selectModeProcessingData";
 import * as L from "leaflet";
-const chicagoCoordinates = [41.8781, -87.53];
+
+const chicagoCoordinates = [41.8781, -87.48];
 const defaultZoomLevel = 12;
 
 const Maps = ({
@@ -36,7 +37,7 @@ const Maps = ({
             if (renderMode === "brushmode" || renderMode === "slidermode") {
                 addCircles(data, 5000, layerRef.current);
             } else if (renderMode === "selectmode") {
-                selectMap(data, layerRef.current,checkBoxes)
+                selectMap(data, layerRef.current,checkBoxes);
             }
         }
     }, [data, renderMode, checkBoxes]);

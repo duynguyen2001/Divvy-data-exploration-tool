@@ -7,8 +7,8 @@ function LineChart({ data ,chosenData}) {
     const ref = useD3(
         (svg) => {
             const margin = { top: 70, right: 30, bottom: 50, left: 80 },
-                width = 600 - margin.left - margin.right,
-                height = 450 - margin.top - margin.bottom;
+                width = 800 - margin.left - margin.right,
+                height = 500 - margin.top - margin.bottom;
 
             const lineChart = svg
                 .append("g")
@@ -119,7 +119,7 @@ function LineChart({ data ,chosenData}) {
             style={{
                 height: 500,
                 width: "100%",
-                marginRight: "0px",
+                marginRight: "10%",
                 marginLeft: "0px",
             }}
         >

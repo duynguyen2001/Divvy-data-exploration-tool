@@ -16,10 +16,10 @@ export function selectMap(data, map, checkBoxes) {
     // updateJson(window.data, geojson);
     console.log(checkBoxes)
     var options = {
-        member_electric: checkBoxes[0],
-        member_normal: checkBoxes[1],
-        casual_electric: checkBoxes[2],
-        casual_normal: checkBoxes[3],
+        casual_normal: checkBoxes[0],
+        casual_electric: checkBoxes[1],
+        member_normal: checkBoxes[2],
+        member_electric: checkBoxes[3],
     };
 
     let selectedData = select(data, options);

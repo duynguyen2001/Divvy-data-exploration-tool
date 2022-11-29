@@ -35,7 +35,7 @@ const SelectMode = ({
                             ])
                         }
                     >
-                        Member Electric
+                        Casual Normal
                     </Checkbox>
                 </Label>
                 <Label>
@@ -50,7 +50,7 @@ const SelectMode = ({
                             ])
                         }
                     >
-                        Member Normal
+                        Casual Electric
                     </Checkbox>
                 </Label>
                 <Label>
@@ -65,7 +65,7 @@ const SelectMode = ({
                             ])
                         }
                     >
-                        Casual Electric
+                        Member Normal
                     </Checkbox>
                 </Label>
                 <Label>
@@ -80,7 +80,7 @@ const SelectMode = ({
                             ])
                         }
                     >
-                        Casual Normal
+                        Member Electric
                     </Checkbox>
                 </Label>
             </Grid>
