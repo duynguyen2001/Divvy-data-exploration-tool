@@ -17,6 +17,7 @@ const Maps = ({
     changeRenderMode,
     chosenData,
     changeChosenData,
+    checkBoxes,
     ...props
 }) => {
     const mapRef = useRef(null);
@@ -35,10 +36,10 @@ const Maps = ({
             if (renderMode === "brushmode" || renderMode === "slidermode") {
                 addCircles(data, 5000, layerRef.current);
             } else if (renderMode === "selectmode") {
-                selectMap(data, layerRef.current)
+                selectMap(data, layerRef.current,checkBoxes)
             }
         }
-    }, [data, renderMode]);
+    }, [data, renderMode, checkBoxes]);
 
 
     return (

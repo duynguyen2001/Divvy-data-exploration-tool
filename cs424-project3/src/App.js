@@ -17,6 +17,7 @@ export default function App() {
     const [data, changeData] = React.useState(raw);
     const [chosenData, changeChosenData] = React.useState([]);
     const [renderMode, changeRenderMode] = React.useState("none");
+    const [checkBoxes, changeCheckBoxes] = React.useState([true, true, true, true]);
     return (
         <div>
             <ThemeProvider theme={theme}>
@@ -37,6 +38,7 @@ export default function App() {
                         changeRenderMode={changeRenderMode}
                         chosenData={chosenData}
                         changeChosenData={changeChosenData}
+                        checkBoxes={checkBoxes}
                     />
                 </div>
                 <HashRouter>
@@ -91,6 +93,8 @@ export default function App() {
                                     changeRenderMode={changeRenderMode}
                                     chosenData={chosenData}
                                     changeChosenData={changeChosenData}
+                                    checkBoxes={checkBoxes}
+                                    changeCheckBoxes={changeCheckBoxes}
                                     />
                                 }
                             />

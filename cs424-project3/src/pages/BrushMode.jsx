@@ -16,7 +16,6 @@ const BrushMode = ({
     }, []);
     return (
         <div>
-            <h1>Hello World</h1>
             <LineChart data={data} chosenData={chosenData}/>
         </div>
     );

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import raw from "../hooks/functions/divvy_dataset.json";
 import PieChart from "./PieChart";
-import { Checkbox, Grid } from "theme-ui";
+import { Checkbox, Grid, Label } from "theme-ui";
 import { useState } from "react";
 const SelectMode = ({
     data,
@@ -10,26 +10,25 @@ const SelectMode = ({
     changeRenderMode,
     chosenData,
     changeChosenData,
+    checkBoxes,
+    changeCheckBoxes,
     ...props
 }) => {
     useEffect(() => {
         changeData(raw);
         changeRenderMode("selectmode");
     }, []);
-    useEffect(() => {}, []);
-    const [checkBoxes, changeCheckBoxes] = useState([true, true, true, true]);
     //https://medium.com/programming-essentials/how-to-manage-a-checkbox-with-react-hooks-f8c3d973eeca#:~:text=The%20state%20related%20to%20a%20checkbox%20input%20is,at%20How%20to%20Create%20Functional%20Components%20in%20React.
     return (
         <div>
-            <h1>Hello World</h1>
             <PieChart data={data} chosenData={chosenData} />
-            <form>
-                <Grid gap={2} columns={4}>
+            <Grid gap={2} columns={4}>
+                <Label>
                     <Checkbox
                         checked={checkBoxes[0]}
                         onChange={(e) =>
                             changeCheckBoxes([
-                                e.target.value,
+                                checkBoxes[0] ? false : true,
                                 checkBoxes[1],
                                 checkBoxes[2],
                                 checkBoxes[3],
@@ -38,12 +37,14 @@ const SelectMode = ({
                     >
                         Member Electric
                     </Checkbox>
+                </Label>
+                <Label>
                     <Checkbox
-                        value={checkBoxes[1]}
+                        checked={checkBoxes[1]}
                         onChange={(e) =>
                             changeCheckBoxes([
                                 checkBoxes[0],
-                                e.target.value,
+                                checkBoxes[1] ? false : true,
                                 checkBoxes[2],
                                 checkBoxes[3],
                             ])
@@ -51,34 +52,38 @@ const SelectMode = ({
                     >
                         Member Normal
                     </Checkbox>
+                </Label>
+                <Label>
                     <Checkbox
-                        value={checkBoxes[2]}
+                        checked={checkBoxes[2]}
                         onChange={(e) =>
                             changeCheckBoxes([
                                 checkBoxes[0],
                                 checkBoxes[1],
-                                e.target.value,
+                                checkBoxes[2] ? false : true,
                                 checkBoxes[3],
                             ])
                         }
                     >
                         Casual Electric
                     </Checkbox>
+                </Label>
+                <Label>
                     <Checkbox
-                        value={checkBoxes[3]}
+                        checked={checkBoxes[3]}
                         onChange={(e) =>
                             changeCheckBoxes([
                                 checkBoxes[0],
                                 checkBoxes[1],
                                 checkBoxes[2],
-                                e.target.value,
+                                checkBoxes[3] ? false : true,
                             ])
                         }
                     >
                         Casual Normal
                     </Checkbox>
-                </Grid>
-            </form>
+                </Label>
+            </Grid>
         </div>
     );
 };

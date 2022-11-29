@@ -6,23 +6,25 @@ import * as LeafletDraw from "leaflet-draw";
 import "leaflet.heat";
 import "leaflet-draw/dist/leaflet.draw.css";
 import { MapContainer } from "react-leaflet";
+import { useEffect } from "react";
 /**
  * map with heat map, aggregated to community area level
  * @param {Array} coordinates centre point of the map, i.e [45.0, -87.4]
  * @param {Number} zoom how big the map is, preferably 11 to 14
  */
-export function selectMap(data, map) {
+export function selectMap(data, map, checkBoxes) {
     // updateJson(window.data, geojson);
+    console.log(checkBoxes)
     var options = {
-        member_electric: true,
-        member_normal: true,
-        casual_electric: true,
-        casual_normal: true,
+        member_electric: checkBoxes[0],
+        member_normal: checkBoxes[1],
+        casual_electric: checkBoxes[2],
+        casual_normal: checkBoxes[3],
     };
 
     let selectedData = select(data, options);
     console.log(selectedData.length);
-
+    
     let points = selectedData.map((d) => [d.start_lat, d.start_lng, 0.3]);
     L.heatLayer(points, {
         radius: 25,
@@ -51,7 +53,7 @@ export function select(data, options) {
         }
         if (options.member_normal) {
             if (
-                ride.rideable_type != "electric_bike" &&
+                ride.rideable_type !== "electric_bike" &&
                 ride.member_casual === "member"
             ) {
                 final.push(ride);

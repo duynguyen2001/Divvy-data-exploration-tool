@@ -1,8 +1,16 @@
 /** @jsxImportSource theme-ui */
 import { Outlet, Link } from "react-router-dom";
-import { Box, Button, Container, Flex, Grid } from "theme-ui";
+import { Box, Button, Container, Flex, Grid, Heading, NavLink } from "theme-ui";
 // import Map from "./Map";
-function Layout({data, changeData, renderMode, changeRenderMode, chosenData, changeChosenData, ...props}) {
+function Layout({
+    data,
+    changeData,
+    renderMode,
+    changeRenderMode,
+    chosenData,
+    changeChosenData,
+    ...props
+}) {
     return (
         <Flex
             sx={{
@@ -20,18 +28,10 @@ function Layout({data, changeData, renderMode, changeRenderMode, chosenData, cha
                     position: "relative",
                     zIndex: "6",
                     width: "50vw",
-                    height: "20vh",
-                    border: "2px solid red",
+                    padding: 4,
                 }}
-                columns={[6]}>
-                <Link to="/">
-                    <Button>Home</Button>
-                </Link>
-
-                <Link to="/about">
-                    <Button>About</Button>
-                </Link>
-
+                columns={[3]}
+            >
                 <Link to="/BrushMode">
                     <Button>Brush Mode</Button>
                 </Link>
@@ -42,10 +42,6 @@ function Layout({data, changeData, renderMode, changeRenderMode, chosenData, cha
 
                 <Link to="/SliderMode">
                     <Button>Slider Mode</Button>
-                </Link>
-
-                <Link to="/nothing-here">
-                    <Button>Nothing Here</Button>
                 </Link>
             </Grid>
             <hr />
@@ -58,7 +54,13 @@ function Layout({data, changeData, renderMode, changeRenderMode, chosenData, cha
                     position: "relative",
                     zIndex: "1",
                     width: "50vw",
-                    height: "60vh",
+                    background: "rgba(255, 255, 255, 0.45)",
+                    borderRadius: "16px",
+                    boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+                    backdropFilter: "blur(5px)",
+                    WebkitBackdropFilter: "blur(5px)",
+                    border: "1px solid rgba(255, 255, 255, 0.3)",
+                    padding: 4,
                 }}
             >
                 <Outlet />
